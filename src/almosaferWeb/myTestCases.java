@@ -2,20 +2,15 @@ package almosaferWeb;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-public class myTestCases extends parameters{
+public class myTestCases extends parameters {
 
 	@BeforeTest
 	public void setup() {
@@ -51,7 +46,7 @@ public class myTestCases extends parameters{
 
 	@Test()
 	public void hotelsTabIsNotSelected() {
-		TabIsSelected(driver.findElement(By.id("uncontrolled-tab-example-tab-hotels")));
+		tabIsSelected(driver.findElement(By.id("uncontrolled-tab-example-tab-hotels")));
 	}
 
 	@Test(enabled = false)
@@ -82,7 +77,7 @@ public class myTestCases extends parameters{
 
 	}
 
-	@Test(invocationCount = 1,enabled = false)
+	@Test(invocationCount = 1, enabled = false)
 	public void changeLanguageTest() throws InterruptedException {
 		String[] urls = { "https://global.almosafer.com/en", "https://global.almosafer.com/ar" };
 		int index = rand.nextInt(urls.length);
@@ -110,39 +105,30 @@ public class myTestCases extends parameters{
 
 		Select select = new Select(webelement);
 		select.selectByIndex(randomNumbers);
-		WebElement searchButtonElement=driver.findElement(By.className("sc-1vkdpp9-6"));
+		WebElement searchButtonElement = driver.findElement(By.className("sc-1vkdpp9-6"));
 		searchButtonElement.click();
 		Thread.sleep(25000);
-		String loadingBarElement=driver.findElement(By.className("sc-cClmTo")).getText();
-		if(driver.getCurrentUrl().contains("ar"))
-		{
-			Assert.assertEquals(loadingBarElement.contains("وجدنا"),true );
-			
-			
-			
-		}
-		else
-		{
-			
-			Assert.assertEquals(loadingBarElement.contains("found"),true );
-		}
-	    WebElement lowestPrice=driver.findElement(By.className("sc-hokXgN"));
-	    lowestPrice.click();
-	    Thread.sleep(2000);
-	    List<WebElement>prices=driver.findElements(By.className("Price__Value"));
-	    int  firstPriceItem=Integer.parseInt(prices.get(0).getText());
-	    int lastPriceItem=Integer.parseInt(prices.get(prices.size()-1).getText());
-	    softassert.assertEquals(firstPriceItem<lastPriceItem, true);
-	  
+		String loadingBarElement = driver.findElement(By.className("sc-cClmTo")).getText();
+		if (driver.getCurrentUrl().contains("ar")) {
+			Assert.assertEquals(loadingBarElement.contains("وجدنا"), true);
 
-	    
+		} else {
+
+			Assert.assertEquals(loadingBarElement.contains("found"), true);
+		}
+		WebElement lowestPrice = driver.findElement(By.className("sc-hokXgN"));
+		lowestPrice.click();
+		Thread.sleep(2000);
+		List<WebElement> prices = driver.findElements(By.className("Price__Value"));
+		int firstPriceItem = Integer.parseInt(prices.get(0).getText());
+		int lastPriceItem = Integer.parseInt(prices.get(prices.size() - 1).getText());
+		softassert.assertEquals(firstPriceItem < lastPriceItem, true);
+
 	}
 
 	@AfterTest
 	public void postTest() {
-		softassert.assertAll();
 
 	}
-	
 
 }

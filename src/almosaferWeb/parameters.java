@@ -1,7 +1,6 @@
 package almosaferWeb;
 
 import java.util.Random;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -61,13 +60,12 @@ public class parameters {
 
 	}
 
-	public void TabIsSelected(WebElement theTab) {
+	public void tabIsSelected(WebElement theTab) {
 		WebElement hotelsElement = theTab;
 		String hotelsStateInWebsite = hotelsElement.getAttribute("aria-selected");
 		String hotelsState = "false";
 		Assert.assertEquals(hotelsStateInWebsite, hotelsState);
 
 	}
-
 
 }
