@@ -17,49 +17,49 @@ public class myTestCases extends parameters {
 		theBeginningOfTheWebsite();
 	}
 
-	@Test()
+	@Test(priority = 1)
 	public void defaultLanguage() {
 		checkLanguage("en");
 		softassert.assertAll();
 
 	}
 
-	@Test()
+	@Test(priority = 2)
 	public void currencyTest() {
 		checkCurrency("[SAR]");
 		softassert.assertAll();
 	}
 
-	@Test()
+	@Test(priority = 3)
 	public void numberTest() {
 		checkTheNumberFunction("+966554400000");
 		softassert.assertAll();
 
 	}
 
-	@Test()
+	@Test(priority = 4)
 	public void qitafLogoTest() {
 		checkLogFunction(driver.findElement(By.xpath("//div[@class='sc-fihHvN eYrDjb']//*[name()='svg']")));
 		softassert.assertAll();
 
 	}
 
-	@Test()
+	@Test(priority = 5)
 	public void hotelsTabIsNotSelected() {
 		tabIsSelected(driver.findElement(By.id("uncontrolled-tab-example-tab-hotels")));
 	}
 
-	@Test(enabled = false)
+	@Test(priority = 6)
 	public void testTheFlightDepartureAndReturnDate() {
 		WebElement flightDepartureDate = driver
-				.findElement(By.cssSelector("div[class='sc-OxbzP sc-lnrBVv gKbptE'] span[class='sc-fvLVrH hNjEjT']"));
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-kqlzXE blwiEW'] span[class='sc-cPuPxo LiroG']"));
 		int flightDepartureDateAsInteger = Integer.parseInt(flightDepartureDate.getText());
 		WebElement flightReturnDate = driver
-				.findElement(By.cssSelector("div[class='sc-OxbzP sc-bYnzgO bojUIa'] span[class='sc-fvLVrH hNjEjT']"));
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-OxbzP edzUwL'] span[class='sc-cPuPxo LiroG']"));
 		WebElement dayVlaue = driver
-				.findElement(By.cssSelector("div[class='sc-OxbzP sc-lnrBVv gKbptE'] span[class='sc-eSePXt ljMnJa']"));
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-kqlzXE blwiEW'] span[class='sc-hvvHee cuAEQj']"));
 		WebElement monthValueInWebsite = driver
-				.findElement(By.cssSelector("div[class='sc-OxbzP sc-bYnzgO bojUIa'] span[class='sc-hvvHee cuAEQj']"));
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-OxbzP edzUwL'] span[class='sc-bYnzgO doqpRk']"));
 		int flightReturnDateInWebsite = Integer.parseInt(flightReturnDate.getText());
 		LocalDate today = LocalDate.now();
 		int flightDepartureDateAsExpected = today.plusDays(1).getDayOfMonth();
@@ -77,7 +77,7 @@ public class myTestCases extends parameters {
 
 	}
 
-	@Test(invocationCount = 1, enabled = false)
+	@Test(priority = 7)
 	public void changeLanguageTest() throws InterruptedException {
 		String[] urls = { "https://global.almosafer.com/en", "https://global.almosafer.com/ar" };
 		int index = rand.nextInt(urls.length);
@@ -107,18 +107,20 @@ public class myTestCases extends parameters {
 		select.selectByIndex(randomNumbers);
 		WebElement searchButtonElement = driver.findElement(By.className("sc-1vkdpp9-6"));
 		searchButtonElement.click();
-		Thread.sleep(25000);
-		String loadingBarElement = driver.findElement(By.className("sc-cClmTo")).getText();
+		Thread.sleep(50000);
+		String loadingBarElement = driver.findElement(By.className("sc-kAKrxA")).getText();
 		if (driver.getCurrentUrl().contains("ar")) {
 			Assert.assertEquals(loadingBarElement.contains("وجدنا"), true);
+			WebElement lowestPrice = driver.findElement(By.className("jyUtIz"));
+			lowestPrice.click();
 
 		} else {
 
 			Assert.assertEquals(loadingBarElement.contains("found"), true);
+			WebElement lowestPrice = driver.findElement(By.className("hcjHpm"));
+			lowestPrice.click();
 		}
-		WebElement lowestPrice = driver.findElement(By.className("sc-hokXgN"));
-		lowestPrice.click();
-		Thread.sleep(2000);
+
 		List<WebElement> prices = driver.findElements(By.className("Price__Value"));
 		int firstPriceItem = Integer.parseInt(prices.get(0).getText());
 		int lastPriceItem = Integer.parseInt(prices.get(prices.size() - 1).getText());
